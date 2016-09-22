@@ -1,0 +1,30 @@
+Filename: 273-exit-relay-pinning.txt
+Title: Exit relay pinning for web services
+Author:  Philipp Winter, Roya Ensafi, and Nick Feamster
+Created: 2016-09-22
+Status: Draft
+Target: n/a
+
+0. Overview
+
+  To mitigate the harm caused by malicious exit relays, this proposal
+  presents a novel scheme -- exit relay pinning -- to allow web sites to
+  express that Tor connections should preferably originate from a set of
+  predefined exit relays.  This proposal is currently in draft state.
+  Any feedback is appreciated.
+
+1. Motivation
+
+  Malicious exit relays are increasingly becoming a problem.  We have
+  been witnessing numerous opportunistic attacks, but also highly
+  sophisticated, targeted attacks that are financially motivated.  So
+  far, we have been looking for malicious exit relays using active
+  probing and a number of heuristics, but since it is inexpensive to
+  keep setting up new exit relays, we are facing an uphill battle.
+
+  Similar to the now-superseded concept of exit enclaves, this proposal
+  enables web services to express that Tor clients should prefer a
+  predefined set of exit relays when connecting to the service.  We
+  encourage sensitive sites to set up their own exit relays and have Tor
+  clients prefer these relays, thus greatly mitigating the risk of
+  man-in-the-middle attacks.
