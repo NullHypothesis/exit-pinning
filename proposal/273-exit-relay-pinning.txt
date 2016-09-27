@@ -154,3 +154,6 @@ Target: n/a
      register it, and use my relays for pinning.  This could easily be
      mitigated by rotating my relay identity keys, and might not be that
      big a problem.
+
+   o Should we support non-HTTP services?  For example, do we want to
+     support, say, SSH?  And if so, how would we go about it?
