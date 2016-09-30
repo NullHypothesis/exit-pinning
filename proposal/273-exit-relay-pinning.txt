@@ -157,3 +157,7 @@ Target: n/a
 
    o Should we support non-HTTP services?  For example, do we want to
      support, say, SSH?  And if so, how would we go about it?
+
+   o HPKP also defines a "report-uri" directive to which errors should be
+     reported.  Do we want something similar, so site operators can detect
+     issues such as attempted DoS attacks?
