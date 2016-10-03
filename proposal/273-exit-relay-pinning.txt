@@ -68,20 +68,37 @@ Target: n/a
 
 2.3 Exit relay pinning policy
 
-   An exit relay pinning policy MUST exhibit the following format:
+   An exit relay pinning policy MUST be formatted in JSON.  The root
+   element is called "erp-policy" and it points to a list of pinned exit
+   relays.  Each list element MUST contain two elements, "fingerprint"
+   and "signature".  The "fingerprint" element points to the
+   hex-encoded, uppercase, 40-digit fingerprint of an exit relay, e.g.,
+   9B94CD0B7B8057EAF21BA7F023B7A1C8CA9CE645.  The "signature" element
+   points to an Ed25519 signature, uppercase and hex-encoded.  The
+   following JSON shows a conceptual example:
 
-     Fpr_1,Sig_K1( H( Fpr_1 || "example.com" ) )
-     Fpr_2,Sig_K2( H( Fpr_2 || "example.com" ) )
-     ...
-     Fpr_n,Sig_Kn( H( Fpr_n || "example.com" ) )
+   {
+     "erp-policy": [
+       {
+         "fingerprint": Fpr1,
+         "signature": Sig_K1( H( Fpr1 || "example.com" ) )
+       },
+       {
+         "fingerprint": Fpr2,
+         "signature": Sig_K2( H( Fpr2 || "example.com" ) )
+       },
+       ...
+       {
+         "fingerprint": Fprn,
+         "signature": Sig_Kn( H( Fprn || "example.com" ) )
+       }
+     ]
+   }
 
-   All Fpr variables refer to the hex-encoded, uppercase, 40-digit
-   fingerprint of an exit relay, for example
-   9B94CD0B7B8057EAF21BA7F023B7A1C8CA9CE645.  Sig refers to an Ed25519
-   signature, uppercase and hex-encoded, and K1 refers to a relay's
-   master private identity key.  H refers to the SHA-256 hash function.
-   The || operator refers to string concatenation, i.e., "foo" || "bar"
-   results in "foobar".
+   Fpr refers to a relay's fingerprint as discussed above.  In the
+   signature, K refers to a relay's master private identity key.  H
+   refers to the SHA-256 hash function.  The || operator refers to
+   string concatenation, i.e., "foo" || "bar" results in "foobar".
 
    The signatures over fingerprint and domain are necessary to prove
    that an exit relay agrees to being pinned.  The website's domain --
@@ -90,8 +107,8 @@ Target: n/a
    serve as their pinned exit relays.
 
    After having fetched an ERP policy, Tor Browser MUST first validate
-   the signature over all records.  If any record does not validate, Tor
-   Browser MUST abort the ERP procedure.
+   the signature over all list elements.  If any element does not
+   validate, Tor Browser MUST abort the ERP procedure.
 
    If an ERP policy contains more than one exit relay, Tor Browser MUST
    select one at random, weighted by its bandwidth.  That way, we can
