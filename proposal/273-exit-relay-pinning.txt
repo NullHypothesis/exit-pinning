@@ -70,10 +70,10 @@ Target: n/a
 
    An exit relay pinning policy MUST exhibit the following format:
 
-     Fpr_1,Sig_K1( H( Fpr_1 || example.com ) )
-     Fpr_2,Sig_K2( H( Fpr_2 || example.com ) )
+     Fpr_1,Sig_K1( H( Fpr_1 || "example.com" ) )
+     Fpr_2,Sig_K2( H( Fpr_2 || "example.com" ) )
      ...
-     Fpr_n,Sig_Kn( H( Fpr_n || example.com ) )
+     Fpr_n,Sig_Kn( H( Fpr_n || "example.com" ) )
 
    All Fpr variables refer to the hex-encoded, uppercase, 40-digit
    fingerprint of an exit relay, for example
