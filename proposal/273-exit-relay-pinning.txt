@@ -81,24 +81,24 @@ Target: n/a
      "erp-policy": [
        {
          "fingerprint": Fpr1,
-         "signature": Sig_K1( H( Fpr1 || "example.com" ) )
+         "signature": Sig_K1(Fpr1 || "example.com")
        },
        {
          "fingerprint": Fpr2,
-         "signature": Sig_K2( H( Fpr2 || "example.com" ) )
+         "signature": Sig_K2(Fpr2 || "example.com")
        },
        ...
        {
          "fingerprint": Fprn,
-         "signature": Sig_Kn( H( Fprn || "example.com" ) )
+         "signature": Sig_Kn(Fprn || "example.com")
        }
      ]
    }
 
    Fpr refers to a relay's fingerprint as discussed above.  In the
-   signature, K refers to a relay's master private identity key.  H
-   refers to the SHA-256 hash function.  The || operator refers to
-   string concatenation, i.e., "foo" || "bar" results in "foobar".
+   signature, K refers to a relay's master private identity key.  The ||
+   operator refers to string concatenation, i.e., "foo" || "bar" results
+   in "foobar".
 
    The signatures over fingerprint and domain are necessary to prove
    that an exit relay agrees to being pinned.  The website's domain --
