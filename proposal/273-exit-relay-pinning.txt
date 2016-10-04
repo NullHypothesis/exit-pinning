@@ -79,6 +79,7 @@ Target: n/a
 
    {
      "erp-policy": [
+       "start-policy",
        {
          "fingerprint": Fpr1,
          "signature": Sig_K1("erp-signature" || "example.com" || Fpr1)
@@ -91,7 +92,8 @@ Target: n/a
        {
          "fingerprint": Fprn,
          "signature": Sig_Kn("erp-signature" || "example.com" || Fprn)
-       }
+       },
+       "end-policy"
      ]
    }
 
@@ -99,7 +101,9 @@ Target: n/a
    signature, K refers to a relay's master private identity key.  The ||
    operator refers to string concatenation, i.e., "foo" || "bar" results
    in "foobar".  "erp-signature" is a constant and denotes the purpose
-   of the signature.
+   of the signature.  "start-policy" and "end-policy" are both constants
+   and meant to prevent an adversary from serving a client only a
+   partial list of pins.
 
    The signatures over fingerprint and domain are necessary to prove
    that an exit relay agrees to being pinned.  The website's domain --
@@ -107,9 +111,10 @@ Target: n/a
    parties such as evil.com cannot coerce exit relays they don't own to
    serve as their pinned exit relays.
 
-   After having fetched an ERP policy, Tor Browser MUST first validate
-   the signature over all list elements.  If any element does not
-   validate, Tor Browser MUST abort the ERP procedure.
+   After having fetched an ERP policy, Tor Browser MUST first verify
+   that the two constants "start-policy" and "end-policy" are present,
+   and then validate the signature over all list elements.  If any
+   element does not validate, Tor Browser MUST abort the ERP procedure.
 
    If an ERP policy contains more than one exit relay, Tor Browser MUST
    select one at random, weighted by its bandwidth.  That way, we can
