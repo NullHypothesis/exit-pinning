@@ -216,3 +216,8 @@ Target: n/a
      only a tiny fraction of them will want it.  Web servers could send
      the header only to IP addresses that run an exit relay, but that
      adds quite a bit of extra complexity.
+
+   o We currently defend against malicious websites by fetching the ERP
+     policy over several exit relays, spread over time.  In doing so, we
+     are making assumptions on the number of visits the website sees.
+     Is there a better solution that isn't significantly more complex?
