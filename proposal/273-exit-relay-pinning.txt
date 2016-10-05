@@ -181,11 +181,11 @@ Target: n/a
    o Should we support non-HTTP services?  For example, do we want to
      support, say, SSH?  And if so, how would we go about it?
 
-   o HPKP also defines a "report-uri" directive to which errors should be
-     reported.  Do we want something similar, so site operators can detect
-     issues such as attempted DoS attacks?
+   o HPKP also defines a "report-uri" directive to which errors should
+     be reported.  Do we want something similar, so site operators can
+     detect issues such as attempted DoS attacks?
 
-   o It is wasteful to send a 60-70 byte header to all browsers while only a
-     tiny fraction of them will want it.  Web servers could send the header only
-     to IP addresses that run an exit relay, but that adds quite a bit of extra
-     complexity.
+   o It is wasteful to send a 60-70 byte header to all browsers while
+     only a tiny fraction of them will want it.  Web servers could send
+     the header only to IP addresses that run an exit relay, but that
+     adds quite a bit of extra complexity.
