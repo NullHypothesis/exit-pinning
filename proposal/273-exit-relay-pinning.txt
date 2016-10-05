@@ -125,7 +125,34 @@ Target: n/a
 
      MapAddress example.com example.com.Fpr_n.exit
 
-2.4 Design trade-offs
+2.4 Defending against malicious websites
+
+   The purpose of exit relay pinning is to protect a website's users
+   from malicious exit relays.  We must further protect the same users
+   from the website, however, because it could abuse ERP to reduce a
+   user's anonymity set.  The website could group users into
+   arbitrarily-sized buckets by serving them different ERP policies on
+   their first visit.  For example, the first Tor user could be pinned
+   to exit relay A, the second user could be pinned to exit relay B,
+   etc.  This would allow the website to link together the sessions of
+   anonymous users.
+
+   We cannot prevent websites from serving client-specific policies, but
+   we can detect it by having Tor Browser fetch a website's ERP policy
+   over multiple independent exit relays.  If the policies are not
+   identical, Tor Browser MUST ignore the ERP policies.
+
+   If Tor Browser would attempt to fetch the ERP policy over n circuits
+   as quickly as possible, the website would receive n connections
+   within a narrow time interval, suggesting that all these connections
+   originated from the same client.  To impede such time-based
+   correlation attacks, Tor Browser MUST wait for a randomly determined
+   time span before fetching the ERP policy.  Tor Browser SHOULD
+   randomly sample a delay from an exponential distribution.  The
+   disadvantage of this defence is that it can take a while until Tor
+   Browser knows that it can trust an ERP policy.
+
+2.5 Design trade-offs
 
    We now briefly discuss alternative design decisions, and why we
    defined ERP the way we did.
@@ -150,7 +177,7 @@ Target: n/a
    prior to connecting to a site, but the additional complexity does not
    seem to justify the added security or reduced overhead.
 
-2.5 Open questions
+2.6 Open questions
 
    o How should we deal with selective DoS or otherwise unavailable exit
      relays?  That is, what if an adversary takes offline pinned exit
